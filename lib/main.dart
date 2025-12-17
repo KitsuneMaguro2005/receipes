@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:receipes/model/receipe.dart';
+import 'package:receipes/recipe_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         appBarTheme:
             const AppBarTheme(centerTitle: true, backgroundColor: Colors.pink),
       ),
-      home: const MyHomePage(title: 'Recipe Calculator'),
+      home: const MyHomePage(title: 'Recipe calculator '),
     );
   }
 }
@@ -37,10 +38,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Container(
           child: ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return buildRecipeCard(Recipe.samples[index]);
-            },
             itemCount: Recipe.samples.length,
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {
+                  print((Recipe.samples[index].imgLabel));
+                  Navigator.push(context,MaterialPageRoute(
+                    builder: (context) => RecipeDetail(recipe: Recipe.samples[index]),
+                  ));
+                },
+                child: buildRecipeCard(Recipe.samples[index]),
+              );
+            },
           ),
         ),
       ),
@@ -49,11 +58,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget buildRecipeCard(Recipe recipe) {
     return Card(
-      child: Column(
-        children: <Widget>[
-          Image(image: AssetImage(recipe.imageUrl)),
-          Text(recipe.imgLabel),
-        ],
+      elevation: 2.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Image(image: AssetImage(recipe.imageUrl)),
+            SizedBox(height: 14.0),
+            Text(recipe.imgLabel,
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+          ],
+        ),
       ),
     );
   }
