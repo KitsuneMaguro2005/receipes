@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: ListView.builder(
             itemCount: Recipe.samples.length,
             itemBuilder: (BuildContext context, int index) {
+              
               return GestureDetector(
                 onTap: () {
                   print((Recipe.samples[index].imgLabel));
@@ -67,9 +68,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             Image(image: AssetImage(recipe.imageUrl)),
-            SizedBox(height: 14.0),
+            const SizedBox(height: 14.0),
             Text(recipe.imgLabel,
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
           ],
         ),
       ),
